@@ -1,5 +1,18 @@
+import random as r 
 
+def generate_random_data(num_points, lower_bound=1, upper_bound=100):
+    """
+    Generate a list of random integers.
 
+    Parameters:
+    num_points (int): The number of random points to generate.
+    lower_bound (int): The lower bound for the random values.
+    upper_bound (int): The upper bound for the random values.
+
+    Returns:
+    list: A list of random integers.
+    """
+    return [r.randint(lower_bound, upper_bound) for _ in range(num_points)]
 
 
 def median(data):
@@ -85,6 +98,20 @@ def box_plot_stats(data):
         'max': sorted_data[-1]
     }
 
+def print_box_plot_stats(data):
+    """
+    Print the five-number summary for a list of numbers.
+
+    Parameters:
+    data (list): A list of numerical values.
+    """
+    stats = box_plot_stats(data)
+    print(f"Min: {stats['min']}")
+    print(f"Q1: {stats['Q1']}")
+    print(f"Median: {stats['median']}")
+    print(f"Q3: {stats['Q3']}")
+    print(f"Max: {stats['max']}")
+
 def draw_box_plot(data):
     """
     Draw a box plot for a list of numbers using matplotlib.
@@ -112,15 +139,29 @@ def draw_box_plot_horizontal(data):
     plt.title("Horizontal Box Plot")
     plt.xlabel("Values")
     plt.show()
+
+def generate_Test_Questions():
+    f = open("boxPlotTestQuestions.txt", "w")
+    for i in range(10, 23, 4):
+        for j in range(4):
+            myList = generate_random_data(i)
+            f.write('Data Set: ')
+            for item in myList:
+                f.write(str(item) + ' ')
+            f.write('\n'*2)
+            stats = box_plot_stats(myList)
+            f.write(f"Min: {stats['min']}\n")
+            f.write(f"Q1: {stats['Q1']}\n")
+            f.write(f"Median: {stats['median']}\n")
+            f.write(f"Q3: {stats['Q3']}\n")
+            f.write(f"Max: {stats['max']}\n")
+            f.write('\n'*3)
+
     
 def main():
-    a = [13, 12,9,11,14,12,10,15,11,10,7]
-    print("Box plot statistics for dataset a:")
-    for key, value in box_plot_stats(a).items():
-       print(f"  {key}: {value}")
+    generate_Test_Questions()
 
-    draw_box_plot(a)
-    draw_box_plot_horizontal(a)
+
 
 #### End of Main ####
 
